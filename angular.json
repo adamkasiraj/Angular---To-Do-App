@@ -27,9 +27,16 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/font-awesome/scss/font-awesome.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              //"node_modules/bootstrap/scss/mdb-free.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/hammerjs/hammer.min.js",
+              "src/app/scripts/custom.js"
+            ],
           },
           "configurations": {
             "production": {
@@ -78,7 +85,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/app/scripts/custom.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

@@ -1,20 +1,87 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container-fluid py-5 bg-secondary">
+  <div class="container">
+    <div class="row row-flex-card justify-content-center row-categories">
+      <div class="col-6 col-md-4 col-lg-3 col-category" *ngFor="let category of categories" (click)="onSelect(category)">
+        <div class="card card-category">
+          <div class="card-body text-center text-uppercase text-white">
+            <h3> {{category.name}} </h3>
+            <p> <span class="badge bg-dark rounded-0 badge-pill text-white">{{countTodosByCat(category.id)}}</span>  </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 ">
+        <div class="card d-flex bg-white" href="#">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <button class="btn btn-dark p-3 rounded-0" id="addCategory" (click)='showForm()'>
+                <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+            </button>
+            <form style="display:none;" id="addCategoryForm">
+              <div class="input-group">     
+                <input mdbActive type="text" placeholder="Add new category" id="form1" class="form-control" [(ngModel)]="newCategory.name"
+                   name="addCat">
+                <span class="input-group-btn">
+                    <button class="btn btn-dark rounded-0" type="submit" aria-hidden="true" (click)="addCategory()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container-fluid py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+        <div class="card">
+          <div class="" *ngIf="selectedCategory; else elseBlock">
+            <div class="card-body">
+              <div class="col-12 text-center">
+                <h4>{{selectedCategory.name}}</h4>
+              </div>
+              <div class="form-group full-width" *ngIf="todosForCat.length > 0">
+                <form class="full-width">
+                  <div *ngFor="let todo of todosForCat">
+                    <input type="checkbox" id="{{todo.id}}" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
+                    <label for="{{todo.id}}" [ngClass]="{'strikethrough' : todo.complete}">{{todo.title}}</label>
+                    <button type="button" class="close ml-3" aria-label="Close" (click)="removeTodo(todo)">
+                      <span aria-hidden="true" >&times;</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <form id="addTaskForm">
+                <div class="input-group">     
+                  <input mdbActive type="text" placeholder="Add new Task" id="form2" class="form-control" [(ngModel)]="newTodo.title" name="addNew">
+                  <span class="input-group-btn">
+                      <button class="btn btn-dark rounded-0" type="submit" aria-hidden="true" (click)="addTodo()">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                      </button>
+                  </span>
+                </div>
+              </form>
 
+            </div>
+          </div>
+          <ng-template #elseBlock>
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="pt-3">Choose category from menu above.</h5>
+                <p class="pt-5">You can also create a new category by typing the name and pressing the enter or clicking on the
+                  <span class="badge primary-color badge-pill">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                  button.
+                </p>
+              </div>
+            </div>
+
+          </ng-template>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
